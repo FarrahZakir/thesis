@@ -1,0 +1,28 @@
+@baseUrl = https://thesis.cyclic.app
+
+### GET ALL
+GET {{baseUrl}}/customer
+
+
+
+### GET ONE
+GET {{baseUrl}}/customer/1
+
+
+
+### CREATE/UPDATE
+POST {{baseUrl}}/customer/1
+Content-Type: application/json
+
+{
+    "cust_username": "farrah",
+    "cust_password": "farrah123",
+    "cust_name": "Farrah Zakir",
+    "cust_phone": "123456",
+    "cust_address": "Bamberg"
+}
+
+
+
+### DELETE
+DELETE {{baseUrl}}/customer/1
