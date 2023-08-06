@@ -1,0 +1,26 @@
+@baseUrl = https://thesis.cyclic.app
+
+### GET ALL
+GET {{baseUrl}}/car
+
+
+
+### GET ONE
+GET {{baseUrl}}/car/1
+
+
+
+### CREATE/UPDATE
+POST {{baseUrl}}/car/1
+Content-Type: application/json
+
+{
+    "car_name": "Mini",
+    "car_brand": "BMW",
+    "car_price": "12000"
+}
+
+
+
+### DELETE
+DELETE {{baseUrl}}/car/1
