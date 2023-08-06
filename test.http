@@ -1,0 +1,26 @@
+### GET ALL
+GET https://helpful-jade-puppy.cyclic.app/customers
+
+
+
+### GET ONE
+GET https://helpful-jade-puppy.cyclic.app/customers/1
+
+
+
+### CREATE/UPDATE
+POST https://helpful-jade-puppy.cyclic.app/customers/1
+Content-Type: application/json
+
+{
+    "cust_username":"farrah",
+    "cust_password": "farrah123",
+    "cust_name": "Farrah Zakir",
+    "cust_phone": "+12345",
+    "cust_address": "Bamberg"
+}
+
+
+
+### DELETE
+DELETE https://helpful-jade-puppy.cyclic.app/customers/1
