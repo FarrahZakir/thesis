@@ -1,0 +1,27 @@
+@baseUrl = https://thesis.cyclic.app
+
+### GET ALL
+GET {{baseUrl}}/order
+
+
+
+### GET ONE
+GET {{baseUrl}}/order/1
+
+
+
+### CREATE/UPDATE
+POST {{baseUrl}}/order/1
+Content-Type: application/json
+
+{
+    "cust_key":"1",
+    "car_key": "4",
+    "order_date": "06.08.2023",
+    "order_sum": "15000"
+}
+
+
+
+### DELETE
+DELETE {{baseUrl}}/order/1
