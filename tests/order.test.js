@@ -1,4 +1,3 @@
-const getDB = require("./db")
 const request = require("supertest")
 const app = require("../index")
 
