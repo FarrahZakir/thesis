@@ -1,14 +1,11 @@
 const express = require('express')
-const getDB = require("./db")
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-const db = getDB()
-
-require('./car')(app, db);
-require('./customer')(app, db);
-require('./order')(app, db);
+require('./car')(app);
+require('./customer')(app);
+require('./order')(app);
 
 // #############################################################################
 // This configures static hosting for files in /public that have the extensions
@@ -27,12 +24,6 @@ require('./order')(app, db);
 // Catch all handler for all other request.
 app.use('*', (req, res) => {
   res.json({ msg: 'no route handler found' }).end()
-})
-
-// Start the server
-const port = process.env.PORT || 3000
-app.listen(port, () => {
-  console.log(`index.js listening on ${port}`)
 })
 
 module.exports = app

@@ -1,48 +1,51 @@
-module.exports = function(app, db) {
+module.exports = function(app) {
+  const getDB = require("./db")
 
   // Create or Update an Order
   app.post('/order/:key', async (req, res) => {
+    const db = getDB()
+
     //check with car_key if the car exists in the car collection
-    //console.log(req.body)
     const car_key = req.body.car_key
-    console.log(car_key)
     const car = await db.collection('car').get(car_key)
-    console.log(car)
+    
     if (car == null) {
       return res.status(400).json({ msg: 'The ordered car does not exist' }).end()
     }
-    //console.log(req.body)
+
     const key = req.params.key
-    console.log(`from collection: order delete key: ${key} with params ${JSON.stringify(req.params)}`)
-    const item = await db.collection('order').set(key, req.body)
-    console.log(JSON.stringify(item, null, 2))
-    res.json(item).end()
+    const order = await db.collection('order').set(key, req.body)
+    
+    res.json(order).end()
   })
 
   // Delete an Order
   app.delete('/order/:key', async (req, res) => {
+    const db = getDB()
+
     const key = req.params.key
-    console.log(`from collection: order delete key: ${key} with params ${JSON.stringify(req.params)}`)
-    const item = await db.collection('order').delete(key)
-    console.log(JSON.stringify(item, null, 2))
-    res.json(item).end()
+    const order = await db.collection('order').delete(key)
+
+    res.json(order).end()
   })
 
   // Get a single Order
   app.get('/order/:key', async (req, res) => {
+    const db = getDB()
+
     const key = req.params.key
-    console.log(`from collection: order get key: ${key} with params ${JSON.stringify(req.params)}`)
-    const item = await db.collection('order').get(key)
-    console.log(JSON.stringify(item, null, 2))
-    res.json(item).end()
+    const order = await db.collection('order').get(key)
+
+    res.json(order).end()
   })
 
   // Get a full listing of Orders
   app.get('/order', async (req, res) => {
-    console.log(`list collection: order with params: ${JSON.stringify(req.params)}`)
-    const items = await db.collection('order').list()
-    console.log(JSON.stringify(items, null, 2))
-    res.json(items).end()
+    const db = getDB()
+
+    const orders = await db.collection('order').list()
+
+    res.json(orders).end()
   })
 
 }
