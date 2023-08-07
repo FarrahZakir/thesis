@@ -11,7 +11,7 @@ module.exports = function(app) {
     const car = await db.collection('car').get(car_key)
     console.log(car)
     if (car == null) {
-      throw new Error('The ordered car does not exist')
+      return res.status(400).json({ msg: 'The ordered car does not exist' }).end()
     }
     //console.log(req.body)
     const key = req.params.key
