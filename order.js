@@ -1,15 +1,9 @@
-module.exports = function(app) {
-
-  const db = require('@cyclic.sh/dynamodb')
+module.exports = function(app, db) {
 
   // Create or Update an Order
   app.post('/order/:key', async (req, res) => {
-    console.log('Hez hez')
-    res.status(200).json({ msg: 'Working' }).end()
-
     //check with car_key if the car exists in the car collection
     //console.log(req.body)
-    /*
     const car_key = req.body.car_key
     console.log(car_key)
     const car = await db.collection('car').get(car_key)
@@ -23,7 +17,6 @@ module.exports = function(app) {
     const item = await db.collection('order').set(key, req.body)
     console.log(JSON.stringify(item, null, 2))
     res.json(item).end()
-    */
   })
 
   // Delete an Order

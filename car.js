@@ -1,6 +1,4 @@
-module.exports = function(app) {
-  
-  const db = require('@cyclic.sh/dynamodb')
+module.exports = function(app, db) {
 
   // Create or Update a Car
   app.post('/car/:key', async (req, res) => {

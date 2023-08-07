@@ -3,9 +3,11 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-require('./car')(app);
-require('./customer')(app);
-require('./order')(app);
+const db = require('@cyclic.sh/dynamodb')
+
+require('./car')(app, db);
+require('./customer')(app, db);
+require('./order')(app, db);
 
 // #############################################################################
 // This configures static hosting for files in /public that have the extensions
