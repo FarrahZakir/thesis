@@ -3,9 +3,9 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-require('./car')(app);
-require('./customer')(app);
-require('./order')(app);
+require('./car')(app)
+require('./customer')(app)
+require('./order')(app)
 
 // #############################################################################
 // This configures static hosting for files in /public that have the extensions

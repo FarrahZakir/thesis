@@ -1,21 +1,21 @@
-module.exports = function(app) {
-  const getDB = require("./db")
+module.exports = function (app) {
+  const getDB = require('./db')
 
   // Create or Update an Order
   app.post('/order/:key', async (req, res) => {
     const db = getDB()
 
-    //check with car_key if the car exists in the car collection
-    const car_key = req.body.car_key
-    const car = await db.collection('car').get(car_key)
-    
+    // check with carKey if the car exists in the car collection
+    const carKey = req.body.carKey
+    const car = await db.collection('car').get(carKey)
+
     if (car == null) {
       return res.status(400).json({ msg: 'The ordered car does not exist' }).end()
     }
 
     const key = req.params.key
     const order = await db.collection('order').set(key, req.body)
-    
+
     res.json(order).end()
   })
 
@@ -47,5 +47,4 @@ module.exports = function(app) {
 
     res.json(orders).end()
   })
-
 }
