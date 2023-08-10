@@ -1,5 +1,5 @@
-module.exports = function(app) {
-  const getDB = require("./db")
+module.exports = function (app) {
+  const getDB = require('./db')
 
   // Create or Update a Customer
   app.post('/customer/:key', async (req, res) => {
@@ -15,7 +15,7 @@ module.exports = function(app) {
   app.delete('/customer/:key', async (req, res) => {
     const db = getDB()
     const key = req.params.key
-    
+
     const item = await db.collection('customer').delete(key)
 
     res.json(item).end()
@@ -36,8 +36,7 @@ module.exports = function(app) {
     const db = getDB()
 
     const items = await db.collection('customer').list()
-    
+
     res.json(items).end()
   })
-
 }

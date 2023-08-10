@@ -1,22 +1,22 @@
-const request = require("supertest")
-const app = require("../index")
+const request = require('supertest')
+const app = require('../index')
 
-//Please fake this db
+// Please fake this db
 jest.mock('../db')
 const getDB = require('../db')
 
-describe("POST /order/:key", () => {
-  it("should create an order", async () => {
+describe('POST /order/:key', () => {
+  it('should create an order', async () => {
     const car = {}
     const order = {}
 
-    //Fake db
+    // Fake db
     getDB.mockImplementation(() => {
       return {
-        //Fake collection
+        // Fake collection
         collection: jest.fn().mockImplementation(collection => {
           return {
-            //Fake data
+            // Fake data
             get: jest.fn().mockReturnValueOnce(car),
             set: jest.fn().mockReturnValueOnce(order)
           }
@@ -24,32 +24,29 @@ describe("POST /order/:key", () => {
       }
     })
 
-    //Check with this data
-    const res = await request(app).post("/order/1");
-    expect(res.statusCode).toBe(200);
-  });
-});
+    // Check with this data
+    const res = await request(app).post('/order/1')
+    expect(res.statusCode).toBe(200)
+  })
+})
 
-describe("POST /order/:key", () => {
-  it("should fail when creating an order of non existing car", async () => {
-    const car = {}
-    const order = {}
-
-    //Fake db
+describe('POST /order/:key', () => {
+  it('should fail when creating an order of non existing car', async () => {
+    // Fake db
     getDB.mockImplementation(() => {
       return {
-        //Fake collection
+        // Fake collection
         collection: jest.fn().mockImplementation(collection => {
           return {
-            //Fake data
+            // Fake data
             get: jest.fn().mockReturnValueOnce(null)
           }
         })
       }
     })
 
-    //Check with this data
-    const res = await request(app).post("/order/1");
-    expect(res.statusCode).toBe(400);
-  });
-});
+    // Check with this data
+    const res = await request(app).post('/order/1')
+    expect(res.statusCode).toBe(400)
+  })
+})
