@@ -1,0 +1,71 @@
+# CircleCI configuration file
+# This config was automatically generated from your source code
+# Stacks detected: deps:node:.,test:jest:
+version: 2.1
+orbs:
+  node: circleci/node@5
+jobs:
+  build:
+    # Build the app
+    docker:
+      - image: cimg/base:2023.06
+    steps:
+      - checkout
+      - run:
+          name: "Update Node.js and npm"
+          command: |
+            curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
+            curl https://www.npmjs.com/install.sh | sudo bash
+      - run:
+          name: Check current version of node
+          command: node -v
+  test-node:
+    # Install node dependencies and run tests
+    executor: node/default
+    environment:
+      JEST_JUNIT_OUTPUT_DIR: ./test-results/
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          command: npm install jest-junit
+      - run:
+          name: Run tests
+          command: npm run test --ci --runInBand --reporters=default --reporters=jest-junit
+      - store_test_results:
+          path: ./test-results/
+  lint-node:
+    # Install node dependencies and run lint
+    executor: node/default
+    environment:
+      ESLINT_OUTPUT_DIR: ./lint-results/
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          command: npm install eslint
+      - run:
+          name: Run lint
+          command: npm run eslint .
+      - store_lint_results:
+          path: ./lint-results/
+  deploy:
+    # This is an example deploy job, not actually used by the workflow
+    docker:
+      - image: cimg/base:stable
+    steps:
+      # Replace this with steps to deploy to users
+      - run:
+          name: deploy
+          command: '#e.g. ./deploy.sh'
+workflows:
+  build-and-test:
+    jobs:
+    # - build
+      - test-node
+    # - lint-node
+    # - deploy:
+    #     requires:
+    #       - test-node
