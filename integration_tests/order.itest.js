@@ -11,4 +11,4 @@ async function testGetOrders () {
   console.log('Response was: ', data)
 }
 
-testGetOrders().then()
+testGetOrders()
