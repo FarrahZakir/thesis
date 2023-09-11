@@ -71,7 +71,7 @@ workflows:
     jobs:
     # - build
       - unit-test-node
-    # - lint-node
+      - lint-node
       - integration-test-node
     # - deploy:
     #     requires:
