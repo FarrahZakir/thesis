@@ -10,4 +10,4 @@ async function testGetOrders () {
   assert(data !== null, 'Response was empty')
   console.log('Response was: ', data)
 }
-testGetOrders()
+await testGetOrders()
