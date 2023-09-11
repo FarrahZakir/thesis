@@ -7,10 +7,9 @@ orbs:
 jobs:
   build:
     # Build the app
+    executor: node/default
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run:
           name: Check current version of node
           command: node -v
