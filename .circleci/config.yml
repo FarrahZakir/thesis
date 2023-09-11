@@ -69,7 +69,7 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-    # - build
+      - build
       - unit-test-node
       - lint-node
       - integration-test-node
