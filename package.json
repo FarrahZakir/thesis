@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --testTimeout=5000 --detectOpenHandles --debug",
+    "integration-test": "node integration_tests/order.itest.js",
     "dev": "env-cmd nodemon index.js",
     "repl": "env-cmd node",
     "lint": "eslint .",

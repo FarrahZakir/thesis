@@ -19,7 +19,7 @@ jobs:
       - run:
           name: Check current version of node
           command: node -v
-  test-node:
+  unit-test-node:
     # Install node dependencies and run tests
     executor: node/default
     environment:
@@ -31,15 +31,13 @@ jobs:
       - run:
           command: npm install jest-junit
       - run:
-          name: Run tests
+          name: Run unit tests
           command: npm run test --ci --runInBand --reporters=default --reporters=jest-junit
       - store_test_results:
           path: ./test-results/
   lint-node:
     # Install node dependencies and run lint
     executor: node/default
-    environment:
-      ESLINT_OUTPUT_DIR: ./lint-results/
     steps:
       - checkout
       - node/install-packages:
@@ -48,9 +46,17 @@ jobs:
           command: npm install eslint
       - run:
           name: Run lint
-          command: npm run eslint .
-      - store_lint_results:
-          path: ./lint-results/
+          command: npm run lint --ci --runInBand --reporters=default
+  integration-test-node:
+    # Run integratoin tests
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: Run integration tests
+          command: npm run integration-test --ci --runInBand --reporters=default
   deploy:
     # This is an example deploy job, not actually used by the workflow
     docker:
@@ -64,8 +70,10 @@ workflows:
   build-and-test:
     jobs:
     # - build
-      - test-node
+      - unit-test-node
     # - lint-node
+      - integration-test-node
     # - deploy:
     #     requires:
-    #       - test-node
+    #       - unit-test-node
+    #       - integration-test-node
