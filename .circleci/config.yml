@@ -64,9 +64,25 @@ workflows:
   build-and-test:
     jobs:
       - build
+          filters:
+            branches:
+              only:
+                - develop
       - unit-test-node
+          filters:
+            branches:
+              only:
+                - develop
       - lint-node
+          filters:
+            branches:
+              only:
+                - develop
       - integration-test-node
+          filters:
+            branches:
+              only:
+                - main
     # - deploy:
     #     requires:
     #       - unit-test-node
