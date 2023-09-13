@@ -57,6 +57,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       # Replace this with steps to deploy to users
+      - checkout
       - run:
           name: deploy
           command: 'bash ./deploy.sh'
