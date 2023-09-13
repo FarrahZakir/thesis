@@ -60,7 +60,7 @@ jobs:
       - checkout
       - run:
           name: deploy
-          command: 'bash ./deploy.sh'
+          command: 'bash ./.circleci/deploy.sh'
 workflows:
   build-and-test:
     jobs:
