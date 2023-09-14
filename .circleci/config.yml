@@ -51,16 +51,16 @@ jobs:
       - run:
           name: Run integration tests
           command: npm run integration-test --ci --runInBand --reporters=default
-  deploy:
-    # This is deploy job, used by the workflow
+  release:
+    # This is release job, used by the workflow
     docker:
       - image: cimg/base:stable
     steps:
-      # Replace this with steps to deploy to users
+      # Replace this with steps to release to Cyclic
       - checkout
       - run:
-          name: deploy
-          command: 'bash ./.circleci/deploy.sh'
+          name: release
+          command: 'bash ./.circleci/release.sh'
 workflows:
   build-and-test:
     jobs:
@@ -79,12 +79,7 @@ workflows:
             branches:
               only:
                 - develop
-      - integration-test-node:
-          filters:
-            branches:
-              only:
-                - main
-      - deploy:
+      - release:
           requires:
             - build
             - unit-test-node
@@ -93,3 +88,8 @@ workflows:
             branches:
               only:
                 - develop
+      - integration-test-node:
+          filters:
+            branches:
+              only:
+                - main
