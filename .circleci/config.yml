@@ -4,6 +4,7 @@
 version: 2.1
 orbs:
   node: circleci/node@5
+  jq: circleci/jq@3.0.0
 jobs:
   build:
     # Build the app
@@ -46,11 +47,13 @@ jobs:
     executor: node/default
     steps:
       - checkout
+      - jq/install:
+          version: jq-1.7
       - node/install-packages:
           pkg-manager: npm
       - run:
           name: Run integration tests
-          command: npm run integration-test --ci --runInBand --reporters=default
+          command: 'bash ./.circleci/integration_test.sh'
   release:
     # This is release job, used by the workflow
     docker:
