@@ -6,7 +6,7 @@ module.exports = function (app) {
     const db = getDB()
 
     // check with carKey if the car exists in the car collection
-    const carKey = req.body.carKey
+    const carKey = req.body.car_key
     const car = await db.collection('car').get(carKey)
 
     if (car == null) {
