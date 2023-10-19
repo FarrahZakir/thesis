@@ -23,7 +23,7 @@ require('./order')(app)
 
 // Catch all handler for all other request.
 app.use('*', (req, res) => {
-  res.json({ msg: 'no route handler found' }).end()
+  res.json({ msg: ' Welcome to AWS. Code base for this application lies on GitHub at: https://github.com/FarrahZakir/thesis. Please use the endpoints to access data. For example: /order ' }).end()
 })
 
 module.exports = app
