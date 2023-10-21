@@ -16,4 +16,4 @@ do
     sleep 1
 done
 
-npm run integration-test --ci --runInBand --reporters=default
+npm run integration-test

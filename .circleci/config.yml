@@ -7,7 +7,7 @@ orbs:
   jq: circleci/jq@3.0.0
 jobs:
   build:
-    # Build the app
+    # Build the application
     executor: node/default
     steps:
       - checkout
@@ -15,45 +15,27 @@ jobs:
           name: Check current version of node
           command: node -v
   unit-test-node:
-    # Install node dependencies and run tests
+    # Install node dependencies and run unit tests
     executor: node/default
-    environment:
-      JEST_JUNIT_OUTPUT_DIR: ./test-results/
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run:
+          name: Install jest
           command: npm install jest-junit
       - run:
           name: Run unit tests
-          command: npm run test --ci --runInBand --reporters=default --reporters=jest-junit
-      - store_test_results:
-          path: ./test-results/
+          command: npm run unit-test
   lint-node:
     # Install node dependencies and run lint
     executor: node/default
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run:
+          name: Install eslint
           command: npm install eslint
       - run:
           name: Run lint
-          command: npm run lint --ci --runInBand --reporters=default
-  integration-test-node:
-    # Run integratoin tests
-    executor: node/default
-    steps:
-      - checkout
-      - jq/install:
-          version: jq-1.7
-      - node/install-packages:
-          pkg-manager: npm
-      - run:
-          name: Run integration tests
-          command: 'bash ./.circleci/integration_test.sh'
+          command: npm run lint
   release:
     # This is release job, used by the workflow
     docker:
@@ -64,6 +46,14 @@ jobs:
       - run:
           name: release
           command: 'bash ./.circleci/release.sh'
+  integration-test-node:
+    # Run integratoin tests
+    executor: node/default
+    steps:
+      - checkout
+      - run:
+          name: Run integration tests
+          command: 'bash ./.circleci/integration_test.sh'
 workflows:
   build-and-test:
     jobs:
